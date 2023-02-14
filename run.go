@@ -67,7 +67,11 @@ func ticker(bot *tgbotapi.BotAPI, db *database.Databases) {
 }
 
 func commandReceiver(bot *tgbotapi.BotAPI, db *database.Databases) {
-	updates := bot.GetUpdatesChan(tgbotapi.UpdateConfig{})
+	updates := bot.GetUpdatesChan(tgbotapi.UpdateConfig{
+		Offset:  0,
+		Timeout: 60,
+	})
+
 	for update := range updates {
 		if update.Message == nil {
 			continue
